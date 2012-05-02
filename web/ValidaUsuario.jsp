@@ -11,7 +11,15 @@ String mensaje = "";
 String ruta = "";
 String digitoValidado = "";
 String digitoSinValidar = "";
-
+String nombreEjecutivo = "";
+String codArea = "";
+String tel = "";
+String sucursal = "";
+String email1 = "";
+String email2 = "";
+String fecha = "";
+String paterno = "";
+String materno = "";
 
 Valida xp = new Valida();
 
@@ -36,21 +44,30 @@ if(mensaje.trim().equals("")){
         String[][] Matriz = new String[100][100];
         Matriz = sqlGatilla.SQL_LlenaObjetoSessionUsuario(rut);
         sqlGatilla = null;
+
         HttpSession objSesion = request.getSession(true);
-        objSesion.setAttribute("usuario", Matriz[1][1].trim());
-        objSesion.setAttribute("nombre", Matriz[1][2].trim());
-        objSesion.setAttribute("email", Matriz[1][3].trim());
-        objSesion.setAttribute("rut", Matriz[1][4].trim());
-    } catch (Exception e) {}
-        ruta = "IngresoDatos.jsp";    
+
+       
+
+        if(Matriz[1][1].trim().equals("FIN")){            
+        }else{
+             nombreEjecutivo = Matriz[1][1].trim();
+             codArea = Matriz[1][2].trim();
+             tel = Matriz[1][3].trim();
+             sucursal =Matriz[1][4].trim();
+             email1 =  Matriz[1][5].trim();
+             email2 =  Matriz[1][5].trim();
+             fecha = Matriz[1][6].trim();
+             paterno = Matriz[1][7].trim();
+             materno =  Matriz[1][8].trim();
+        }
+        
+    } catch (Exception e) {mensaje+= e;}
+     ruta = "IngresoDatos.jsp?nombreEjecutivo="+nombreEjecutivo+"&codArea="+codArea+"&tel="+tel+"&sucursal="+sucursal+"&email1="+email1+"&email2="+email2+"&fecha="+fecha+"&paterno="+paterno+"&materno="+materno+"&rut="+rut;
 }else{
      ruta = "index.jsp?mensaje=" + mensaje;
 }
 response.sendRedirect(ruta);
-
 %>
-
 </head>
-
-
 </html>

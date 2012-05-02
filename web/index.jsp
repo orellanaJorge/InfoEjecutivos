@@ -33,8 +33,12 @@ function MM_swapImage() { //v3.0
 
 <div id="main-wrapper">
 	<div id="header"></div>
-  <div id="center"></a>
-<br><br>
+  <div id="center">
+  
+  
+ 
+<br>
+<br>
 <br>
 <% 
 String mensaje = request.getParameter("mensaje");
@@ -79,7 +83,7 @@ if( (mensaje==null) || (mensaje.length()==0) ){mensaje = "";}
   </tr>
 </table>
   </div>
-    <div id="footer">
+  <div id="footer">
     </div>
 </div>
 
