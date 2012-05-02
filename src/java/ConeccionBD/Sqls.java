@@ -18,16 +18,12 @@ public class Sqls {
         return Matriz;
     }
 
-    public String[][] SQL_LlenaObjetoCodigosAreas(String region) {
+    public String[][] SQL_LlenaObjetoCodigosAreas() {
         String[][] Matriz = new String[200][200];
         String sql = "";
         try{
-            OperacionBD OperaBD = new OperacionBD();
-            if(region.trim().equals("")){
-                sql = "SELECT ID, CODIGO, REGION, PROVINCIA FROM INF_COD_AREA ORDER BY ID ";
-            }else{
-                sql = "SELECT ID, CODIGO, REGION, PROVINCIA FROM INF_COD_AREA where id = " + region.trim() + " ORDER BY ID ";
-            }
+            OperacionBD OperaBD = new OperacionBD();            
+            sql = "SELECT ID, CODIGO, REGION, PROVINCIA FROM INF_COD_AREA ORDER BY ID ";
             Matriz = OperaBD.SQL_Dev_Matriz_Env_Sql(sql, 4, 4);
             OperaBD = null;
         }catch  (Exception e) {
@@ -36,11 +32,18 @@ public class Sqls {
         return Matriz;
     }
 
-     public String[][] SQL_LlenaObjetoSucursales() {
+     public String[][] SQL_LlenaObjetoSucursales(String region) {
         String[][] Matriz = new String[200][200];
+        String sql = "";
         try{
             OperacionBD OperaBD = new OperacionBD();
-            String sql = "select codigo , descripcion , region from INF_SUCURSALES ";
+
+            if(region.trim().equals("")){
+                sql = "select codigo , descripcion , region from INF_SUCURSALES ";
+            }else{
+                sql = "select codigo , descripcion , region from INF_SUCURSALES where region =  " + region.trim();    
+            }
+
             Matriz = OperaBD.SQL_Dev_Matriz_Env_Sql(sql, 3, 4);
             OperaBD = null;
         }catch  (Exception e) {

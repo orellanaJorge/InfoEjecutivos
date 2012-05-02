@@ -36,6 +36,10 @@ if( (materno==null) || (materno.length()==0) ){materno = "";sw="1";mensaje+= " (
 
 if(email1.trim().equals(email2.trim())){}else{sw="1";mensaje+= " (Mails ingresados no son iguales)";}
 
+try {
+    int h = Integer.parseInt(tel);
+} catch (Exception e){sw="1";mensaje+="(Para telefono deben ser solo numeros.)";}
+
 
 String ruta = "";
 if(sw.trim().equals("")){

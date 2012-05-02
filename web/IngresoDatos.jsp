@@ -36,6 +36,7 @@ function MM_swapImage() { //v3.0
 ConeccionBD.Sqls sqlGatilla = new ConeccionBD.Sqls();
 String nombre = "";
 String email = "";
+String region = "";
 
 String nombreEjecutivo = request.getParameter("nombreEjecutivo");
 String codArea = request.getParameter("codArea");
@@ -47,7 +48,8 @@ String mensaje = request.getParameter("mensaje");
 String paterno = request.getParameter("paterno");
 String materno = request.getParameter("materno");
 String rut = request.getParameter("rut");
-
+ String[][] Matriz = new String[200][200];
+int col=0;
 
 if( (rut==null) || (rut.length()==0) ){rut = "";}
 if( (nombreEjecutivo==null) || (nombreEjecutivo.length()==0) ){nombreEjecutivo = "";}
@@ -106,56 +108,70 @@ if (rut == null) {
 	      <td>:</td>
 	      <td><input type="text" name="materno" id="materno" size="65" maxlength="65" value=<%=materno%> ></td>
         </tr>
-	    <tr>
+
+              <tr>
 	      <td>&nbsp;</td>
-	      <td height="21">Sucursal</td>
+	      <td height="21">Cod. Area</td>
 	      <td>&nbsp;</td>
-	      <td><select name="sucursal" id="sucursal" onChange="action = 'IngresoDatos.jsp'; submit()">
-	        <option value="" selected> Seleccione --></option>
-	        <%
-            String region = "";
-            String[][] Matriz = new String[200][200];
-            Matriz = sqlGatilla.SQL_LlenaObjetoSucursales();
-            int col = 1;
-            while (!Matriz[col][1].trim().equals("FIN")){%>
-	        <%if(sucursal.trim().equals(Matriz[col][1].trim())){%>
-	        <option selected value=<%=Matriz[col][1].trim()%>><%="  " + Matriz[col][2].trim()%></option>
-	        <%region = Matriz[col][3].trim();}else{%>
-	        <option value=<%=Matriz[col][1].trim()%>><%="  " + Matriz[col][2].trim()%></option>
-	        <%}%>
-	        <%col++;}%>
-          </select></td>
-        </tr>
-	    <tr>
-	      <td height="27">&nbsp;</td>
-	      <td height="27">Cod. Area</td>
-	      <td>:</td>
 	      <td>
-
-              <select name="codArea" id="codArea">
-              <option value="" selected> Seleccione --></option>
-
+            <%String d="";%>
+            <select name="codArea" id="codArea" onChange="action = 'IngresoDatos.jsp?sucursal=<%=d%>'; submit()">
+            <option value="" selected> Seleccione --></option>
             <%
-
-            Matriz = sqlGatilla.SQL_LlenaObjetoCodigosAreas(region);
+            Matriz = sqlGatilla.SQL_LlenaObjetoCodigosAreas();
             col = 1;
             while (!Matriz[col][1].trim().equals("FIN")){%>
              <%if(codArea.trim().equals(Matriz[col][1].trim())){%>
                 <option selected  value=<%=Matriz[col][1].trim()%>><%="  " + Matriz[col][2].trim() + "    ( " + Matriz[col][3].trim() + ", " + Matriz[col][4].trim() + " ) " %></option>
-             <%}else{%>
+             <%region = Matriz[col][1].trim();}else{%>
                 <option value=<%=Matriz[col][1].trim()%>><%="  " + Matriz[col][2].trim() + "    ( " + Matriz[col][3].trim() + ", " + Matriz[col][4].trim() + " ) " %></option>
              <%}%>
             <%col++;}%>
             </select>
 
+
+
+
               </td>
         </tr>
-	    <tr>
+
+             <tr>
 	      <td height="27">&nbsp;</td>
 	      <td height="27">Telefono Fijo</td>
 	      <td>:</td>
 	      <td><input type="text" name="tel" id="tel" size="10" maxlength="10" value=<%=tel%> ></td>
+            </tr>
+            
+
+
+	    <tr>
+	      <td height="27">&nbsp;</td>
+	      <td height="27">Sucursal</td>
+	      <td>:</td>
+	      <td>
+
+
+            <select name="sucursal" id="sucursal">
+	        <option value="" selected> Seleccione --></option>
+	        <%
+                Matriz = sqlGatilla.SQL_LlenaObjetoSucursales(region);
+                col = 1;
+                while (!Matriz[col][1].trim().equals("FIN")){%>
+                    <%if(sucursal.trim().equals(Matriz[col][1].trim())){%>
+                    <option selected value=<%=Matriz[col][1].trim()%>><%="  " + Matriz[col][2].trim()%></option>
+                    <%}else{%>
+                    <option value=<%=Matriz[col][1].trim()%>><%="  " + Matriz[col][2].trim()%></option>
+                    <%}%>
+                    <%col++;}%>
+                </select>
+
+
+            </td>
         </tr>
+
+
+
+	   
 	    <tr>
 	      <td height="24">&nbsp;</td>
 	      <td>Email</td>
